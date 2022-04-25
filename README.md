@@ -1,34 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Description
 
-## Getting Started
+## Global functions
 
-First, run the development server:
+### Theme switch
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Switch between dark and light profile
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Admin profile
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+To have a profile of this kind you will need to request it, even if you create and account, you will remain as a guest
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+The only data you will be able to edit on your profile is your github username
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Publish new project
 
-## Learn More
+To publish the  new project on your profile you will have the option to drag the info from the github api if you already set your username or you can create a basic description with and `markdown` text
 
-To learn more about Next.js, take a look at the following resources:
+To publish a new project from github the project must exist on your github profile, you just need to provide the project name
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Project list
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+All your public projects on your github account will belisted but not will have a big description, just the name of the project.
 
-## Deploy on Vercel
+To list a more descriptive text you will need to provide the name of the project on the `Publish new project` module
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Edit Personal Profile
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+You can create a personal profile with a  `mark down` text, right now the sections of this profile will be static
+
+## Guest profile
+
+You will be able to watch the Profile of a person and send a `contact me` notification
+
+### Contact me
+
+A form with contact, content, and subject, this will send a notification to the owner of the profile
+
+### Personal profile
+
+Will show the `mark down` text defined by the owner of the profile
+
+# Technologies
+
+## Supabase
+
+## Next.js with typescript
+
+## Github API
+
+## Google authentication
