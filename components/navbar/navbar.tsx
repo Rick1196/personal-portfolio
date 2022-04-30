@@ -4,7 +4,7 @@ import { ButtonLink } from './navbar.styles';
 import MenuIcon from '@mui/icons-material/Menu';
 const pages = ['Bio', 'Contact Me'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-type AuthType = {
+export type AuthType = {
     data: {
         name: string,
         avatar: string

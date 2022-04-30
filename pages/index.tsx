@@ -2,9 +2,18 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Navbar from '@components/navbar'
 import Login from '@components/login'
+import { AuthType } from '@components/navbar/navbar'
 
 
 const Home: NextPage = () => {
+  const auth:AuthType =  {
+    data: {
+      name: '',
+      avatar: ''
+    },
+    isLoading: false,
+    error: undefined
+  }
   return (
     <div>
       <Head>
@@ -14,7 +23,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <Navbar />
+        <Navbar auth={auth}/>
         <Login />
       </main>
     </div>
