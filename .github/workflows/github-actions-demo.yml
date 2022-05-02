@@ -1,10 +1,14 @@
 name: deploy website
 on: [pull_request]
 jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm install
+      - run: npm test
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: npm test
       - uses: actions/checkout@v2
       - uses: amondnet/vercel-action@v19
         with:
