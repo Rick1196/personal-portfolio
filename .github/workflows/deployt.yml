@@ -1,15 +1,6 @@
 name: deploy website
 on: [pull_request]
 jobs:
-  tests:
-    runs-on: ubuntu-latest
-    steps:
-        - uses: actions/checkout@v2
-        - name: Use Node.js 16.13.1
-          uses: actions/setup-node@v1
-          with:
-            node-version: 16.13.1
-        - run: yarn test
   deploy:
     runs-on: ubuntu-latest
     steps:
