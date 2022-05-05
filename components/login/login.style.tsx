@@ -2,7 +2,7 @@ import { Container, Card } from "@mui/material";
 import styled from "styled-components";
 
 export const CenteredContainer = styled(Container)`
-  display: flex;
+  display: flex!important;
   width: 100%;
   height: 90vh;
   flex-wrap: nowrap;
