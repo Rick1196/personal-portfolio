@@ -1,19 +1,20 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Navbar from '@components/navbar'
-import Login from '@components/login'
-import { AuthType } from '@components/navbar/navbar'
-
+import type { NextPage } from "next";
+import { useUser, Auth } from "@supabase/supabase-auth-helpers/react";
+import Head from "next/head";
+import Navbar from "@components/navbar";
+import Login from "@components/login";
+import { AuthType } from "@components/navbar/navbar";
+import { supabase } from "@utils/supabase";
 
 const Home: NextPage = () => {
-  const auth:AuthType =  {
+  const auth: AuthType = {
     data: {
-      name: '',
-      avatar: ''
+      name: "",
+      avatar: "",
     },
     isLoading: false,
-    error: undefined
-  }
+    error: undefined,
+  };
   return (
     <div>
       <Head>
@@ -23,11 +24,11 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <Navbar auth={auth}/>
+        <Navbar auth={auth} />
         <Login />
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
