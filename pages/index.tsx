@@ -1,15 +1,12 @@
+import "@uiw/react-md-editor/markdown-editor.css";
+import "@uiw/react-markdown-preview/markdown.css";
 import type { NextPage } from "next";
-import Navbar from "@components/navbar";
-import { AuthType } from "@components/navbar/navbar";
-import Header from "@components/headers/header";
-import Biography from "@components/biography";
+import Editor from "@components/reachTextEditor/editor";
 
 const Home: NextPage = () => {
   return (
     <div>
-      {/* <Header /> */}
       <main>
-        <Biography />
       </main>
     </div>
   );

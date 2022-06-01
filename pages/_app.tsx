@@ -6,7 +6,11 @@ import { useEffect, useState } from "react";
 import React from "react";
 import Navbar from "@components/navbar";
 import { AuthType } from "@components/navbar/navbar";
+import useLogin from "@components/login/useLogin";
+import { useRouter } from "next/router";
 const defaultTheme = "light";
+const HOME_PAGE = "/biography";
+
 function MyApp({ Component, pageProps }: AppProps) {
   const auth: AuthType = {
     data: {
@@ -28,6 +32,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       sessionStorage.setItem("theme", theme);
     }
   }, [theme, isMounted]);
+  const router = useRouter();
+  const [user] = useLogin();
+  useEffect(() => {
+    if (user) {
+      console.log("Authenticated user", user);
+      router.push(HOME_PAGE);
+    }
+  }, [user]);
   return (
     <ThemeProvider
       theme={{ theme: colorPallete[theme], setTheme, name: theme }}
