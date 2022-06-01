@@ -9,7 +9,7 @@ import { AuthType } from "@components/navbar/navbar";
 import useLogin from "@components/login/useLogin";
 import { useRouter } from "next/router";
 const defaultTheme = "light";
-const HOME_PAGE = "/biography";
+const HOME_PAGE = "/app/biography";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const auth: AuthType = {

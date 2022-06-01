@@ -2,7 +2,8 @@ import React from "react";
 import { supabase } from "@utils/supabase";
 import { useRouter } from "next/router";
 import jwt from "jsonwebtoken";
-import type { NextPage } from "next";
+import type { NextPage, NextPageContext } from "next";
+import { AppContext } from "next/app";
 
 const Biography: NextPage<any> = ({ user }) => {
   const router = useRouter();
@@ -24,8 +25,10 @@ const Biography: NextPage<any> = ({ user }) => {
     </div>
   );
 };
-export async function getServerSideProps(context: any) {
-  let supabaseToken = context.req.cookies["sb-access-token"];
+export async function getServerSideProps(context: {
+  req: { cookies: { [x: string]: any } };
+}) {
+  let supabaseToken = context?.req?.cookies["sb-access-token"];
   if (!supabaseToken) {
     throw new Error(
       "It should not happen! Since this page is guarded by _middlware.ts the presense of supabase token cookie (sb:token) should be already checked"
