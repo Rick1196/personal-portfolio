@@ -8,19 +8,15 @@ import {
   Container,
   Avatar,
   Tooltip,
-  MenuItem,
 } from "@mui/material";
 import { ButtonLink } from "./navbar.styles";
 import MenuIcon from "@mui/icons-material/Menu";
-import styled, { useTheme } from "styled-components";
-import { CustomTypography } from "@components/styles";
+import styled from "styled-components";
+import { CustomTypography, CustomMenuItem, CustomMenu } from "@components/styles";
 import ThemeToggler from "./themeToggler";
+import useLogout from "@components/login/useLogout";
 const pages = ["Bio", "Contact Me"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-const CustomMenuItem = styled(MenuItem)(({ theme }: any) => ({
-  color: `${theme.theme.text} !important`,
-}));
 
 const CustomAppBar = styled(AppBar)(({ theme }: any) => ({
   backgroundColor: "transparent !important",
@@ -30,24 +26,14 @@ const CustomButtonLink = styled(ButtonLink)(({ theme }: any) => ({
   color: `${theme.theme.text} !important`,
 }));
 
-const CustomBox = styled(Box)(() => ({
+const CustomBox = styled(Box)(({ theme }: any) => ({
   gap: "8px",
   display: "flex",
+  color: `${theme.theme.text} !important`,
+  backgroundColor: `${theme.theme.body} !important`,
 }));
 
-export type AuthType = {
-  data: {
-    name: string;
-    avatar: string;
-  };
-  isLoading: boolean;
-  error: any;
-};
-type NavbarProps = {
-  auth: AuthType;
-};
-
-const Navbar: FC<NavbarProps> = ({ auth }: NavbarProps) => {
+const Navbar: FC<any> = ({ user }) => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
@@ -123,14 +109,15 @@ const Navbar: FC<NavbarProps> = ({ auth }: NavbarProps) => {
             ))}
           </Box>
 
-          {auth && auth.data && <UserOptions />}
+          <UserOptions user={user} />
         </Toolbar>
       </Container>
     </CustomAppBar>
   );
 };
 
-const UserOptions: FC = () => {
+const UserOptions: FC<any> = ({ user }) => {
+  const [logout] = useLogout();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
@@ -144,33 +131,35 @@ const UserOptions: FC = () => {
   return (
     <CustomBox sx={{ flexGrow: 0 }}>
       <ThemeToggler />
-      <Tooltip title="Open settings">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-        </IconButton>
-      </Tooltip>
-      <Menu
-        sx={{ mt: "45px" }}
-        id="menu-appbar"
-        anchorEl={anchorElUser}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        open={Boolean(anchorElUser)}
-        onClose={handleCloseUserMenu}
-      >
-        {settings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
-            <CustomTypography textAlign="center">{setting}</CustomTypography>
-          </MenuItem>
-        ))}
-      </Menu>
+      {user && user.user_metadata && (
+        <>
+          <Tooltip title="Open settings">
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt="Remy Sharp" src={user.user_metadata.avatar_url} />
+            </IconButton>
+          </Tooltip>
+          <CustomMenu
+            sx={{ mt: "45px" }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            <CustomMenuItem key={"navbar-logout-button"} onClick={logout}>
+              <CustomTypography textAlign="center">Logout</CustomTypography>
+            </CustomMenuItem>
+          </CustomMenu>
+        </>
+      )}
     </CustomBox>
   );
 };

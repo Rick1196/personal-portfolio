@@ -1,25 +1,17 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import styled, { ThemeProvider } from "styled-components";
+import jwt from "jsonwebtoken";
 import { colorPallete, GlobalStyles } from "@utils/theme";
 import { useEffect, useState } from "react";
 import React from "react";
 import Navbar from "@components/navbar";
-import { AuthType } from "@components/navbar/navbar";
 import useLogin from "@components/login/useLogin";
 import { useRouter } from "next/router";
 const defaultTheme = "light";
 const HOME_PAGE = "/app/biography";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const auth: AuthType = {
-    data: {
-      name: "",
-      avatar: "",
-    },
-    isLoading: false,
-    error: undefined,
-  };
   const [isMounted, setIsMounted] = useState(false);
   const [theme, setTheme] = useState(defaultTheme);
   useEffect(() => {
@@ -36,7 +28,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [user] = useLogin();
   useEffect(() => {
     if (user) {
-      console.log("Authenticated user", user);
       router.push(HOME_PAGE);
     }
   }, [user]);
@@ -47,12 +38,29 @@ function MyApp({ Component, pageProps }: AppProps) {
       <GlobalStyles />
       {isMounted && (
         <>
-          {" "}
-          <Navbar auth={auth} /> <Component {...pageProps} />
+          <Navbar user={pageProps.user} />
+          <Component {...pageProps} />
         </>
       )}
     </ThemeProvider>
   );
+}
+
+export async function getServerSideProps(context: {
+  req: { cookies: { [x: string]: any } };
+}) {
+  let supabaseToken = context?.req?.cookies["sb-access-token"];
+  if (!supabaseToken) {
+    throw new Error(
+      "It should not happen! Since this page is guarded by _middlware.ts the presense of supabase token cookie (sb:token) should be already checked"
+    );
+  }
+  return {
+    props: {
+      //we do not need to verify JWT signature since it has been already done in _middlware.ts
+      user: jwt.decode(supabaseToken),
+    },
+  };
 }
 
 export default MyApp;

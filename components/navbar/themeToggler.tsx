@@ -24,7 +24,7 @@ const ThemeToggler: FC = () => {
         }
         sx={{ p: 0 }}
       >
-        <Avatar src={theme.name === "dark" ? "./bulb.svg" : "./moon.svg"} />
+        <Avatar src={theme.name === "dark" ? "/bulb.svg" : "/moon.svg"} />
       </IconButton>
     </Tooltip>
   );
