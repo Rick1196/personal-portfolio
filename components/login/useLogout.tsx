@@ -8,8 +8,7 @@ const useLogout = () => {
     try {
       await supabase.auth.signOut();
       await fetch("/api/auth/remove", {
-        method: "GET",
-        credentials: "same-origin",
+        method: "POST"
       });
     } finally {
       router.push("/");
