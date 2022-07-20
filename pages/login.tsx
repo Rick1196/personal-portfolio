@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import type { NextPage } from "next";
 import { CenteredBox, CenteredContainer } from "@components/login/login.style";
 import { Typography } from "@mui/material";
-import { useRouter } from "next/router";
-import useLogin from "@components/login/useLogin";
 import GoogleLogin from "@components/login";
 
 const ComponentName: NextPage = () => {

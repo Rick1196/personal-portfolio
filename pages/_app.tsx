@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import styled, { ThemeProvider } from "styled-components";
 import jwt from "jsonwebtoken";
 import { colorPallete, GlobalStyles } from "@utils/theme";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import React from "react";
 import Navbar from "@components/navbar";
 import useLogin from "@components/login/useLogin";
@@ -16,24 +16,33 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [theme, setTheme] = useState(defaultTheme);
   useEffect(() => {
     setIsMounted(true);
-    const theme = sessionStorage.getItem("theme");
-    setTheme(theme ? theme : defaultTheme);
   }, []);
   useEffect(() => {
     if (isMounted) {
+      const theme = sessionStorage.getItem("theme");
+      setTheme(theme ? theme : defaultTheme);
+    }
+  }, [isMounted]);
+  useEffect(() => {
+    if (theme) {
       sessionStorage.setItem("theme", theme);
     }
-  }, [theme, isMounted]);
+  }, [theme]);
   const router = useRouter();
   const [user] = useLogin();
   useEffect(() => {
     if (user) {
+      console.log('redirect to home')
       router.push(HOME_PAGE);
     }
   }, [user]);
   return (
     <ThemeProvider
-      theme={{ theme: colorPallete[theme], setTheme, name: theme }}
+      theme={{
+        theme: colorPallete[theme],
+        setTheme,
+        name: theme,
+      }}
     >
       <GlobalStyles />
       {isMounted && (

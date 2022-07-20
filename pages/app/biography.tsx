@@ -1,9 +1,6 @@
 import React from "react";
-import { supabase } from "@utils/supabase";
-import { useRouter } from "next/router";
 import jwt from "jsonwebtoken";
 import type { NextPage, NextPageContext } from "next";
-import { AppContext } from "next/app";
 import useLogout from "@components/login/useLogout";
 
 const Biography: NextPage<any> = ({ user }) => {

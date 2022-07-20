@@ -8,6 +8,7 @@ const ThemeButton = styled.button`
     cursor: pointer;
   }
 `;
+
 const ThemeToggler: FC = () => {
   const theme = useTheme();
   return (
