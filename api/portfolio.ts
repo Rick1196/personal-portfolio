@@ -15,7 +15,9 @@ const portfolioAPI = {
       myHeaders.append("email", email);
       return (
         await customFetch(routes.user.getPermissions, "GET", {}, myHeaders)
-      ).json();
+      )
+        .json()
+        .then((data: any) => data.permissions?.[0]?.privileges);
     },
     setDefaultPermissions: async (email: string) => {
       const myHeaders = new Headers();

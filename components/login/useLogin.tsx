@@ -14,7 +14,7 @@ const useLogin = () => {
           const userPermissions = await portfolioAPI.user.getPermissions(
             newUser.email as string
           );
-          if (!userPermissions.permissions.length) {
+          if (!userPermissions?.length) {
             await portfolioAPI.user.setDefaultPermissions(
               newUser.email as string
             );
