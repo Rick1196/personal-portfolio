@@ -1,15 +1,13 @@
 import React, { FC } from "react";
 import { supabase } from "@utils/supabase";
 import { useRouter } from "next/router";
+import { logOut } from "./utils";
 
 const useLogout = () => {
   const router = useRouter();
   const logout = async () => {
     try {
-      await supabase.auth.signOut();
-      await fetch("/api/auth/remove", {
-        method: "POST"
-      });
+      await logOut();
     } finally {
       router.push("/");
     }

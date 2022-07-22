@@ -1,22 +1,13 @@
 import React from "react";
-import { supabase } from "@utils/supabase";
 import { useRouter } from "next/router";
 import jwt from "jsonwebtoken";
 import type { NextPage } from "next";
+import { logOut } from "@components/login/utils";
+import useLogout from "@components/login/useLogout";
 
 const Dashboard: NextPage<any> = ({ user }) => {
-  const router = useRouter();
-  const logout = async () => {
-    try {
-      await supabase.auth.signOut();
-      await fetch("/api/auth/remove", {
-        method: "GET",
-        credentials: "same-origin",
-      });
-    } finally {
-      router.push("/");
-    }
-  };
+  const [logout] = useLogout();
+
   return (
     <div>
       <h1>Welcome {user.user_metadata.name}</h1>
