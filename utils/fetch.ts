@@ -1,7 +1,7 @@
 import { cookieNames } from "./consts";
 import cookies from "./cookies";
 
-const getUserPermissions = () => {
+const getUserPermissions = (): string => {
   const userPermissions = cookies.get(cookieNames.permissions);
   return userPermissions ? userPermissions : JSON.stringify([]);
 };

@@ -29,7 +29,9 @@ const portfolioAPI = {
           {},
           myHeaders
         )
-      ).json();
+      )
+        .json()
+        .then((data: any) => data.permissions?.[0]?.privileges);
     },
   },
 };

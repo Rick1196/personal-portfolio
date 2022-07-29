@@ -1,4 +1,6 @@
 import { User } from "@supabase/gotrue-js";
+import { cookieNames } from "@utils/consts";
+import cookies from "@utils/cookies";
 import { supabase } from "@utils/supabase";
 import portfolioAPI from "api/portfolio";
 import React, { useEffect, useState } from "react";
@@ -10,16 +12,19 @@ const useLogin = () => {
       if (user === undefined) {
         const newUser = supabase.auth.user();
         if (newUser) {
+          let userPermissions = [];
           await portfolioAPI.user.set({ event, session });
-          const userPermissions = await portfolioAPI.user.getPermissions(
+          userPermissions = await portfolioAPI.user.getPermissions(
             newUser.email as string
           );
           if (!userPermissions?.length) {
-            await portfolioAPI.user.setDefaultPermissions(
+            userPermissions = await portfolioAPI.user.setDefaultPermissions(
               newUser.email as string
             );
           }
           setUser(newUser);
+          cookies.set(cookieNames.permissions, JSON.stringify(userPermissions));
+          console.log(userPermissions);
         }
       }
     });

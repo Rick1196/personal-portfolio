@@ -18,10 +18,10 @@ export const routes = {
 };
 
 export const cookieNames = {
-  permissions: 'permissions',
-}
+  permissions: "permissions",
+};
 
 export const envValues = {
-  secretKey = 'ULTRA_SUPER_SECRET_ATNTS_THAT_ARE_NOT_SECRET'
-}
+  secretKey: "ULTRA_SUPER_SECRET_ATNTS_THAT_ARE_NOT_SECRET",
+};
 export const root = "http://localhost:3000";
